@@ -1,9 +1,6 @@
-from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse, HttpResponsePermanentRedirect
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from .models import url_db
-from urlshortener import urls
-from django.urls import path
-from . import views
 
 
 def index(request):
@@ -12,6 +9,8 @@ def index(request):
         short_url = request.POST.get("short_url")
         url_db(og=og_url, short=short_url).save()
         return HttpResponse("Your new URL is " + short_url)
+    else:
+        return render(request, 'index.html')
 
 
 def shorten(request, short_url=""):

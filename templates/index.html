@@ -1,0 +1,16 @@
+<html>
+
+<head>
+    <title>URL Shortener</title>
+</head>
+
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="URL Please!" name="og_url" required>
+        <input type="text" placeholder="Desired new URl, pretty please" name="short_url" required>
+        <input type="submit" value="submit">
+    </form>
+</body>
+
+</html>
