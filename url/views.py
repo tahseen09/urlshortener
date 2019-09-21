@@ -21,6 +21,5 @@ def index(request):
 
 
 def shorten(request, short_url=""):
-    short_url = str(request.get_full_path())[1:]
     u = url_db.objects.get(short=short_url)
     return redirect(u.og)
