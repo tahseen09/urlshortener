@@ -1,4 +1,6 @@
-#URL SHORTENER
+# URL SHORTENER
+
+###### It takes any URL as an input from user and if user prefers, one can also provide a custom short URL otherwise a random short URL will be generated(using shortuuid package).
 
 ## Technology Stack:
 ### Backend
