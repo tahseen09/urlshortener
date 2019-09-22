@@ -15,11 +15,11 @@
         {% csrf_token %}
         <div class="form-group">
             <label for="og_url">URL</label>
-            <input type="url" class="form-control" name="og_url" id="og_url" placeholder="Paste your URL please" value={{og_url}}>
+            <input type="url" class="form-control" name="og_url" id="og_url" placeholder="Paste your URL please" value="{{og_url}}" required>
         </div>
         <div class="form-group">
             <label for="short_url">Desired URL</label>
-            <input type="text" class="form-control" id="short_url" name="short_url" placeholder="Desired URL">
+            <input type="text" class="form-control" id="short_url" name="short_url" placeholder="Either write your desired URL or leave it blank for random short URL">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
