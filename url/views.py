@@ -1,28 +1,35 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import url_db
-import shortuuid
+from .models import Link
+from .services import generate_short_url
 
 
-def index(request):
+def home(request):
+    urls = Link.objects.all()
+    context = {"urls": urls}
+    return render(request, "home.html", context)
+
+def _create_new(url: str) -> str:
+    short_url = generate_short_url()
+    link = Link(og=url, short=short_url)
+    link.save()
+    return short_url
+
+
+def url(request):
     if request.method == "POST":
-        og_url = request.POST.get("og_url")
-        short_url = request.POST.get("short_url")
-        try:
-            if short_url == "":
-                short_url = shortuuid.ShortUUID().random(length=5)
-            url_db(og=og_url, short=short_url).save()
-        except:
-            msg = "This desired URL already exists or maybe your short URL is wayyyyyyy too long, please try a new one!"
-            context = {"og_url": og_url, "msg": msg}
-            return render(request, 'index.html', context)
-        url = request.build_absolute_uri() + short_url
-        context = {'url': url}
-        return render(request, 'index.html', context)
-    else:
-        return render(request, 'index.html')
+        url = request.POST.get("url")
+        short_url = _create_new(url)
+        return home(request)
 
+    return render(request, "url.html")
 
 def shorten(request, short_url=""):
-    u = url_db.objects.get(short=short_url)
+    try:
+        u = Link.objects.get(short=short_url)
+    except Link.DoesNotExist:
+        return HttpResponse("URL Not Found")
+    else:
+        u.visit_count += 1
+        u.save()
     return redirect(u.og)

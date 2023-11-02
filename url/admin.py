@@ -1,4 +1,4 @@
 from django.contrib import admin
-from . models import url_db
+from . models import Link
 # Register your models here.
-admin.site.register(url_db)
+admin.site.register(Link)

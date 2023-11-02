@@ -4,6 +4,7 @@ from url import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('<slug:short_url>', views.shorten, name='shorten'),
+    path('u/<slug:short_url>', views.shorten, name='shorten'),
+    path('new', views.url, name='new'),
+    path('', views.home, name='home'),
 ]
