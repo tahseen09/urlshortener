@@ -20,7 +20,7 @@ def url(request):
     if request.method == "POST":
         url = request.POST.get("url")
         short_url = _create_new(url)
-        return home(request)
+        return redirect("home")
 
     return render(request, "url.html")
 
