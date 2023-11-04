@@ -225,42 +225,31 @@
     }
   </style>
   <body>
-    <h1>URL Shortener</h1><br><br>
-    <h2><a href={% url "new" %}>Add</a></h2>
     <div class="datatable-container">
       <!-- ======= Header tools ======= -->
-      <!-- <div class="header-tools">
+      <div class="header-tools">
         <div class="tools">
+          <h1>URL Shortener</h1><br><br>
           <ul>
             <li>
-              <button>
-                <i class="material-icons">add_circle</i>
-              </button>
-            </li>
+              <a href="{% url 'url' %}"><h3 style="color: greenyellow;">Add</h3> </a>
+            </li>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             <li>
-              <button>
-                <i class="material-icons">edit</i>
-              </button>
-            </li>
-            <li>
-              <button>
-                <i class="material-icons">delete</i>
-              </button>
+              <a href="{% url 'logout' %}"><h3 style="color: red;">Logout</h3> </a>
             </li>
           </ul>
         </div>
 
-        <div class="search">
+        <!-- <div class="search">
           <input type="search" class="search-input" placeholder="Search..." />
-        </div>
-      </div> -->
+        </div> -->
+      </div>
       <!-- ======= Table ======= -->
       <table class="datatable">
         <thead>
           <tr>
             <th>Short URL</th>
             <th>Visit Count</th>
-            <th>Expiry</th>
             <th>Long URL</th>
             <th></th>
             <th></th>
@@ -270,12 +259,11 @@
         <tbody>
             {% for url in urls %}
                 <tr>
-                    <td>{{request.get_host}}/u/{{url.short}}</td>
-                    <td>{{url.visit_count}}</td>
-                    <td>{{url.expiry | default_if_none:"-"}}</td>
-                    <td>{{url.og}}</td>
-                    <td>Edit</td>
-                    <td>Delete</td>
+                    <td><a href="{% url 'short' url.short %}" style="color: cyan;" target="_blank">{{request.get_host}}/u/{{url.short}}</a></td>
+                    <td style="color: lightsalmon;"><b>{{url.visit_count}}</b></td>
+                    <td><a href="{{url.og}}" style="color: bisque;" target="_blank">{{url.og}}</a></td>
+                    <td><a href="{% url 'url_update' url.short %}" style="color: red;">Edit</a></td>
+                    <td></td>
                 </tr>
             {% endfor %}
         </tbody>
